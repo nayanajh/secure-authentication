@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="security-icon">
+            ✅
+        </div>
+
+        <h1>Welcome!</h1>
+
+        <p id="username">
+            Loading...
+        </p>
+
+        <div class="secure-message">
+            🔒 Your account is securely authenticated.
+        </div>
+
+        <a href="/logout">
+            <button>
+                Logout
+            </button>
+        </a>
+
+    </div>
+
+    <script>
+
+        fetch("/api/user")
+
+            .then(response => {
+
+                if (!response.ok) {
+                    window.location.href = "/login.html";
+                    return null;
+                }
+
+                return response.json();
+            })
+
+            .then(data => {
+
+                if (data) {
+
+                    document.getElementById("username")
+                        .textContent =
+                        "Logged in as: " + data.username;
+                }
+
+            })
+
+            .catch(() => {
+
+                window.location.href = "/login.html";
+
+            });
+
+    </script>
+
+</body>
+
+</html>
